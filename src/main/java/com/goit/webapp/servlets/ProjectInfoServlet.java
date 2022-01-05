@@ -2,6 +2,8 @@ package com.goit.webapp.servlets;
 
 import com.goit.service.ProjectService;
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.*;
@@ -10,6 +12,7 @@ import javax.servlet.http.*;
 public class ProjectInfoServlet extends HttpServlet {
 
   private ProjectService service;
+  private Map<Long, String> projectInfo = new HashMap<>();
 
   @Override
   public void init() {

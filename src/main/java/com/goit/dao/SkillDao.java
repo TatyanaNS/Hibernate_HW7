@@ -2,8 +2,9 @@ package com.goit.dao;
 
 import java.util.*;
 import java.util.stream.Collectors;
+
+import com.goit.model.*;
 import org.apache.logging.log4j.*;
-import com.goit.model.Skill;
 
 public class SkillDao extends AbstractDao<Skill> {
 
@@ -21,19 +22,16 @@ public class SkillDao extends AbstractDao<Skill> {
     return instance;
   }
 
-  public List<String> getDevelopersOfIndustry(String industry) {
-    return getAll().stream()
-        .filter(skill -> industry.equals(skill.getIndustry()))
-        .flatMap(d -> d.getDevelopers().stream()
-            .map(f -> f.getLastName() + " " + f.getFirstName() + " " + f.getSurname()))
-        .collect(Collectors.toList());
-  }
-
-  public List<String> getDevelopersOfLevel(String level) {
-    return getAll().stream()
-        .filter(skill -> level.equals(skill.getLevel()))
-        .flatMap(d -> d.getDevelopers().stream()
-            .map(f -> f.getLastName() + " " + f.getFirstName() + " " + f.getSurname()))
-        .collect(Collectors.toList());
+  @Override
+  public void delete(Skill entity) {
+    entity = em.merge(entity);
+    em.getTransaction().begin();
+    for (Developer developer : entity.getDevelopers()) {
+      if (!developer.getSkills().isEmpty()) {
+        developer.getSkills().remove(entity);
+      }
+    }
+    em.remove(entity);
+    em.getTransaction().commit();
   }
 }

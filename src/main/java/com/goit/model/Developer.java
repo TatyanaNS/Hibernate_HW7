@@ -1,11 +1,22 @@
 package com.goit.model;
 
 import com.goit.dao.IObjectToString;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+
 import java.util.*;
 import javax.persistence.*;
 
+
 @Entity
 @Table(name = "developers")
+@NamedQueries({
+        @NamedQuery(name = "getAll", query = "from Developer"),
+        @NamedQuery(name = "getDevelopersOfIndustry", query = "select d from Developer d join d.skills s where s.industry = :industry"),
+        @NamedQuery(name = "getDevelopersOfLevel", query = "select d from Developer d join d.skills s where s.level = :level")
+})
 public class Developer implements IObjectToString {
 
   @Id
@@ -27,20 +38,33 @@ public class Developer implements IObjectToString {
   @Column(name = "gender")
   private String gender;
 
-  @ManyToOne(cascade = CascadeType.REFRESH)
-  @JoinColumn(name = "company_id", nullable = false)
+  @ManyToOne
+  @JoinColumn(name = "company_id", referencedColumnName = "id")
   private Company company;
 
   @Column(name = "salary")
   private Double salary;
 
-//  @ManyToMany(cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH},
-//      fetch = FetchType.EAGER)
-//  @JoinTable(
-//      name = "developer_skill",
-//      joinColumns = { @JoinColumn(name = "developer_id") },
-//      inverseJoinColumns = { @JoinColumn(name = "skill_id") }
-//  )
+  @ManyToMany(cascade = {CascadeType.MERGE, CascadeType.ALL, CascadeType.PERSIST, CascadeType.REFRESH},
+      fetch = FetchType.EAGER)
+  @Fetch(value = FetchMode.SUBSELECT)
+  @JoinTable(
+      name = "developer_skill",
+      joinColumns = { @JoinColumn(name = "developer_id") },
+      inverseJoinColumns = { @JoinColumn(name = "skill_id") }
+  )
+  private List<Skill> skills = new ArrayList<>();
+
+  @ManyToMany(cascade = {CascadeType.MERGE, CascadeType.ALL, CascadeType.PERSIST, CascadeType.REFRESH},
+          fetch = FetchType.EAGER)
+  @Fetch(value = FetchMode.SUBSELECT)
+  @JoinTable(
+          name = "developer_project",
+          joinColumns = { @JoinColumn(name = "developer_id") },
+          inverseJoinColumns = { @JoinColumn(name = "project_id") }
+  )
+  @OnDelete(action = OnDeleteAction.CASCADE)
+  private transient List<Project> projects = new ArrayList<>();
 
   public void setDateOfBirth(Date dateOfBirth) {
     this.dateOfBirth = dateOfBirth;
@@ -112,6 +136,22 @@ public class Developer implements IObjectToString {
 
   public void setCompany(Company company) {
     this.company = company;
+  }
+
+  public List<Skill> getSkills() {
+    return skills;
+  }
+
+  public void setSkills(List<Skill> skills) {
+    this.skills = skills;
+  }
+
+  public List<Project> getProjects() {
+    return projects;
+  }
+
+  public void setProjects(List<Project> projects) {
+    this.projects = projects;
   }
 
   @Override

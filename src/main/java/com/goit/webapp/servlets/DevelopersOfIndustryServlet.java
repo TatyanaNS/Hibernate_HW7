@@ -1,5 +1,6 @@
 package com.goit.webapp.servlets;
 
+import com.goit.model.Developer;
 import com.goit.model.Skill;
 import com.goit.service.*;
 import java.io.IOException;
@@ -12,7 +13,7 @@ import javax.servlet.http.*;
 @WebServlet("/developers_industry")
 public class DevelopersOfIndustryServlet extends HttpServlet {
   private SkillService service;
-  private List<String> developersIndustry = new ArrayList<>();
+  private List<Developer> developersIndustry = new ArrayList<>();
 
   @Override
   public void init() {
@@ -32,7 +33,8 @@ public class DevelopersOfIndustryServlet extends HttpServlet {
     Optional<Skill> modelFromStream = HandleBodyUtil.
         getModelFromStream(req.getInputStream(), Skill.class);
     modelFromStream.ifPresent(skill -> {
-      developersIndustry = service.getDevelopersOfIndustry(skill.getIndustry());
+      developersIndustry = DeveloperService.getInstance().developersOfIndustry(skill.getIndustry());
+      System.out.println("Developer level = " + DeveloperService.getInstance().developersOfIndustry(skill.getIndustry()));
     });
     resp.sendRedirect("/developers_industry");
   }

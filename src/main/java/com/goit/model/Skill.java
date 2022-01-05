@@ -1,6 +1,11 @@
 package com.goit.model;
 
 import com.goit.dao.IObjectToString;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+
 import java.util.*;
 import javax.persistence.*;
 
@@ -15,14 +20,15 @@ public class Skill implements IObjectToString {
   @Column(name = "level_skills")
   private String level;
 
-  @ManyToMany(cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH},
+  @ManyToMany(cascade = {CascadeType.MERGE, CascadeType.ALL, CascadeType.PERSIST, CascadeType.REFRESH},
       fetch = FetchType.EAGER)
+  @Fetch(value = FetchMode.SUBSELECT)
   @JoinTable(
       name = "developer_skill",
       joinColumns = { @JoinColumn(name = "skill_id") },
       inverseJoinColumns = { @JoinColumn(name = "developer_id") }
   )
-  private List<Developer> developers = new ArrayList<>();
+  private transient List<Developer> developers = new ArrayList<>();
 
   public List<Developer> getDevelopers() {
     return developers;

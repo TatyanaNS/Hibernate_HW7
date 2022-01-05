@@ -42,11 +42,11 @@ public class SkillService {
     skillDao.delete(skill);
   }
 
-  public List<String> getDevelopersOfIndustry(String industry) {
-    return skillDao.getDevelopersOfIndustry(industry);
-  }
-
-  public List<String> getDevelopersOfLevel(String level) {
-    return skillDao.getDevelopersOfLevel(level);
-  }
+//  public List<String> getDevelopersOfIndustry(String industry) {
+//    return skillDao.getDevelopersOfIndustry(industry);
+//  }
+//
+//  public List<String> getDevelopersOfLevel(String level) {
+//    return skillDao.getDevelopersOfLevel(level);
+//  }
 }

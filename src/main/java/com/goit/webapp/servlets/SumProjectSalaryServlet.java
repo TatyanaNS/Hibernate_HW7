@@ -1,6 +1,5 @@
 package com.goit.webapp.servlets;
 
-import com.goit.dao.ProjectDao;
 import com.goit.model.Project;
 import com.goit.service.*;
 import java.io.IOException;
@@ -33,12 +32,10 @@ public class SumProjectSalaryServlet extends HttpServlet {
   protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
     Optional<Project> modelFromStream = HandleBodyUtil.
         getModelFromStream(req.getInputStream(), Project.class);
-//    System.out.println("get salarySum = " + modelFromStream);
     modelFromStream.ifPresent(project -> {
-      salary = service.getSumProjectSalary(project.getId());
-//      System.out.println("get SumProjectSalaries = " + service.getSumProjectSalary(project.getId()));
+      salary = service.getSumProjectSalary(project.getName());
     });
-//    System.out.println("Get SumProjectSalaries with status code:" + resp.getStatus());
+    System.out.println("Get SumProjectSalaries with status code:" + resp.getStatus());
     resp.sendRedirect("/project_salaries");
   }
 }

@@ -1,6 +1,6 @@
 package com.goit.webapp.servlets;
 
-import com.goit.model.Project;
+import com.goit.model.*;
 import com.goit.service.*;
 import java.io.IOException;
 import java.util.*;
@@ -32,7 +32,9 @@ public class ProjectDeveloperServlet extends HttpServlet {
     Optional<Project> modelFromStream = HandleBodyUtil.
         getModelFromStream(req.getInputStream(), Project.class);
     modelFromStream.ifPresent(project -> {
-      projectDeveloper = service.getProjectDevelopers(project);
+      projectDeveloper = service.getProjectDevelopers(project.getId());
+      System.out.println("projectDeveloper = " + projectDeveloper);
+
     });
     resp.sendRedirect("/project_developers");
   }

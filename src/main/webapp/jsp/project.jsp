@@ -39,7 +39,7 @@
         </div>
         <div class="mb-3">
             <label for="created" class="form-label">Created</label>
-            <input type="date" class="form-control"
+            <input type="date" data-date-format="YYYY-MM-DD" class="form-control"
                   value="${project.created}"
                    id="created" placeholder="Created">
         </div>
@@ -64,6 +64,15 @@
     </div>
 </div>
 <script>
+
+    $("input").on("change", function() {
+        this.setAttribute(
+            "data-date",
+            moment(this.value, "YYYY-MM-DD")
+            .format( this.getAttribute("data-date-format") )
+        )
+    }).trigger("change");
+
     let id = document.getElementById('id');
     let name = document.getElementById('name');
     let created = document.getElementById('created');

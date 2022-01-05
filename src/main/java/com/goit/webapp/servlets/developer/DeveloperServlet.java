@@ -25,15 +25,10 @@ public class DeveloperServlet extends HttpServlet {
         if (deleteId != null) {
             Optional<Developer> developer = service.get(Long.parseLong(deleteId));
             developer.ifPresent(d -> service.delete(d));
+            System.out.println("Developer = " + developer.get());
             resp.sendRedirect("/developers");
         } else {
-            List<Developer> all = null;
-            try {
-                all = service.getAll();
-            } catch (ParseException e) {
-                e.printStackTrace();
-            }
-            req.setAttribute("developers", all);
+            req.setAttribute("developers", service.getAll());
             req.setCharacterEncoding("UTF-8");
             req.getRequestDispatcher("/jsp/developers.jsp").forward(req, resp);
         }

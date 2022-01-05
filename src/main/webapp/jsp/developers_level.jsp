@@ -9,7 +9,7 @@
 <body>
 <%@ include file="navigation.jsp" %>
 <% java.util.List<com.goit.model.Skill> listSkill = (java.util.List<com.goit.model.Skill>) request.getAttribute("listSkill"); %>
-<% java.util.List<java.lang.String> developersLevel = (java.util.List<java.lang.String>) request.getAttribute("developersLevel"); %>
+<% java.util.List<com.goit.model.Developer> developersLevel = (java.util.List<com.goit.model.Developer>) request.getAttribute("developersLevel"); %>
 <div class="container">
     <div class="row">
         <h2>Developers of level</h2>
@@ -41,13 +41,17 @@
         <table class="table">
           <thead>
           <tr>
-              <th scope="col">Developers of level</th>
+              <th scope="col">Last name</th>
+              <th scope="col">First name</th>
+              <th scope="col">Surname</th>
           </tr>
           </thead>
           <tbody>
           <c:forEach var="element" items="${developersLevel}">
                 <tr>
-                    <td><c:out value = "${element}"/></td>
+                    <td><c:out value = "${element.lastName}"/></td>
+                    <td><c:out value = "${element.firstName}"/></td>
+                    <td><c:out value = "${element.surname}"/></td>
                 </tr>
           </c:forEach>
         </tbody>

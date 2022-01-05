@@ -34,7 +34,7 @@ create table developers(
 	date_of_birth date,
 	gender        varchar(50),
 	company_id    integer not null,
-	CONSTRAINT fk_id_company FOREIGN KEY(company_id) REFERENCES companies(id)
+	CONSTRAINT fk_id_company FOREIGN KEY(company_id) REFERENCES companies(id) ON DELETE CASCADE
 );
 
  --skills table
@@ -50,7 +50,7 @@ create table developer_skill(
 	developer_id integer not null,
 	skill_id     integer not null,
 	CONSTRAINT fk_developers_developer_id FOREIGN KEY(developer_id) REFERENCES developers(id),
-	CONSTRAINT fk_skills_skill_id FOREIGN KEY(skill_id) REFERENCES skills(id)
+	CONSTRAINT fk_skills_skill_id FOREIGN KEY(skill_id) REFERENCES skills(id) ON DELETE CASCADE
 );
 
 -- developer_project
@@ -58,7 +58,7 @@ create table developer_project(
 	developer_id integer not null,
 	project_id   integer not null,
 	CONSTRAINT fk_developers_developer_id FOREIGN KEY(developer_id) REFERENCES developers(id),
-	CONSTRAINT fk_projects_project_id FOREIGN KEY(project_id) REFERENCES projects(id)
+	CONSTRAINT fk_projects_project_id FOREIGN KEY(project_id) REFERENCES projects(id) ON DELETE CASCADE
 );
 
 -- company_project
@@ -66,7 +66,7 @@ create table company_project(
 	company_id integer not null,
 	project_id integer not null,
 	CONSTRAINT fk_companies_company_id FOREIGN KEY(company_id) REFERENCES companies(id),
-	CONSTRAINT fk_projects_project_id FOREIGN KEY(project_id) REFERENCES projects(id)
+	CONSTRAINT fk_projects_project_id FOREIGN KEY(project_id) REFERENCES projects(id) ON DELETE CASCADE
 );
 
 -- customer_project
@@ -74,5 +74,5 @@ create table customer_project(
 	customer_id integer not null,
 	project_id  integer not null,
 	CONSTRAINT fk_customers_customer_id FOREIGN KEY(customer_id) REFERENCES customers(id),
-	CONSTRAINT fk_projects_project_id FOREIGN KEY(project_id) REFERENCES projects(id)
+	CONSTRAINT fk_projects_project_id FOREIGN KEY(project_id) REFERENCES projects(id) ON DELETE CASCADE
 );

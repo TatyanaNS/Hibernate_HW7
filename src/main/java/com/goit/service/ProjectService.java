@@ -2,7 +2,6 @@ package com.goit.service;
 
 import com.goit.dao.ProjectDao;
 import com.goit.model.Project;
-import java.text.ParseException;
 import java.util.*;
 import org.apache.logging.log4j.*;
 
@@ -42,15 +41,22 @@ public class ProjectService {
     projectDao.delete(project);
   }
 
-  public List<Project> getProjectDevelopers(Project project) {
-    return projectDao.getProjectDevelopers(project);
+//  public List<Project> getProjectDevelopers(Project project) {
+//    return projectDao.getProjectDevelopers(project);
+//  }
+//
+//  public Map<String, Double> getSumProjectSalary(Long projectId) {
+//    return projectDao.getSumProjectSalary(projectId);
+//  }
+  public Map<String, Double> getSumProjectSalary(String projectName) {
+    return projectDao.getSumProjectSalary(projectName);
   }
 
-  public Map<String, Double> getSumProjectSalary(Long projectId) {
-    return projectDao.getSumProjectSalary(projectId);
+  public List<Project> getProjectDevelopers(Long id) {
+    return projectDao.getProjectDevelopers(id);
   }
 
-  public List<String> getProjectInfo() {
+  public Map<Long, String> getProjectInfo() {
     return projectDao.getProjectInfo();
   }
 }

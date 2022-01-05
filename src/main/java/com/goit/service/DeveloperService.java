@@ -4,7 +4,11 @@ import com.goit.dao.DeveloperDao;
 import com.goit.model.*;
 import java.text.ParseException;
 import java.util.*;
+import java.util.stream.Collectors;
+
 import org.apache.logging.log4j.*;
+
+import javax.persistence.TypedQuery;
 
 public class DeveloperService {
 
@@ -23,7 +27,7 @@ public class DeveloperService {
     return instance;
   }
 
-  public List<Developer> getAll() throws ParseException {
+  public List<Developer> getAll() {
     companyDao.getAll();
     return developerDao.getAll();
   }
@@ -44,7 +48,11 @@ public class DeveloperService {
     developerDao.delete(developer);
   }
 
-  public List<Company> getCompanies() {
-    return CompanyService.getInstance().getAll();
+  public List<Developer> developersOfIndustry(String industry) {
+    return developerDao.developersOfIndustry(industry);
+  }
+
+  public List<Developer> developersOfLevel(String level) {
+    return developerDao.developersOfLevel(level);
   }
 }

@@ -49,14 +49,14 @@
           </thead>
           <tbody>
           <c:forEach var="element" items="${listProjectDevelopers}">
-              <c:forEach var="el" items="${element.developers}">
+            <c:forEach var="developer" items="${element.developers}">
                 <tr>
                     <td><c:out value = "${element.name}"/></td>
-                    <td><c:out value = "${el.lastName}"/></td>
-                    <td><c:out value = "${el.firstName}"/></td>
-                    <td><c:out value = "${el.surname}"/></td>
+                    <td><c:out value = "${developer.lastName}"/></td>
+                    <td><c:out value = "${developer.firstName}"/></td>
+                    <td><c:out value = "${developer.surname}"/></td>
                 </tr>
-              </c:forEach>
+            </c:forEach>
           </c:forEach>
         </tbody>
       </table>

@@ -1,5 +1,6 @@
 package com.goit.webapp.servlets;
 
+import com.goit.model.Developer;
 import com.goit.model.Skill;
 import com.goit.service.*;
 import java.io.IOException;
@@ -12,7 +13,7 @@ import javax.servlet.http.*;
 public class DevelopersOfLevelServlet extends HttpServlet {
 
   private SkillService service;
-  private List<String> developersLevel = new ArrayList<>();
+  private List<Developer> developersLevel = new ArrayList<>();
 
   @Override
   public void init() {
@@ -33,7 +34,7 @@ public class DevelopersOfLevelServlet extends HttpServlet {
     Optional<Skill> modelFromStream = HandleBodyUtil.
         getModelFromStream(req.getInputStream(), Skill.class);
     modelFromStream.ifPresent(skill -> {
-      developersLevel = service.getDevelopersOfLevel(skill.getLevel());
+      developersLevel = DeveloperService.getInstance().developersOfLevel(skill.getLevel());
     });
     resp.sendRedirect("/developers_level");
   }

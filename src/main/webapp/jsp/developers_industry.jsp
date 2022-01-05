@@ -9,7 +9,7 @@
 <body>
 <%@ include file="navigation.jsp" %>
 <% java.util.List<com.goit.model.Skill> listSkill = (java.util.List<com.goit.model.Skill>) request.getAttribute("listSkill"); %>
-<% java.util.List<java.lang.String> developersIndustry = (java.util.List<java.lang.String>) request.getAttribute("developersIndustry"); %>
+<% java.util.List<com.goit.model.Developer> developersIndustry = (java.util.List<com.goit.model.Developer>) request.getAttribute("developersIndustry"); %>
 <div class="container">
     <div class="row">
         <h2>Developers of industry</h2>
@@ -41,13 +41,17 @@
         <table class="table">
           <thead>
           <tr>
-              <th scope="col">Developers of industry</th>
+              <th scope="col">Last name</th>
+              <th scope="col">First name</th>
+              <th scope="col">Surname</th>
           </tr>
           </thead>
           <tbody>
           <c:forEach var="element" items="${developersIndustry}">
                 <tr>
-                    <td><c:out value = "${element}"/></td>
+                    <td><c:out value = "${element.lastName}"/></td>
+                    <td><c:out value = "${element.firstName}"/></td>
+                    <td><c:out value = "${element.surname}"/></td>
                 </tr>
           </c:forEach>
         </tbody>

@@ -8,7 +8,7 @@
 </head>
 <body>
 <%@ include file="navigation.jsp" %>
-<% java.util.List<java.lang.String> listProjectInfo = (java.util.List<java.lang.String>) request.getAttribute("listProjectInfo"); %>
+<% java.util.Map<java.lang.Long, java.lang.String> listProjectInfo = (java.util.Map<java.lang.Long, java.lang.String>) request.getAttribute("listProjectInfo"); %>
 <div class="container">
     <div class="row">
         <h2>Project info</h2>
@@ -23,7 +23,7 @@
           <tbody>
           <c:forEach var="element" items="${listProjectInfo}">
                 <tr>
-                    <td><c:out value = "${element}"/></td>
+                    <td><c:out value = "${element.value}"/></td>
                 </tr>
           </c:forEach>
         </tbody>
