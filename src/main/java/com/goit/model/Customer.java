@@ -18,7 +18,7 @@ public class Customer implements IObjectToString {
   @Column(name = "customer_name")
   private String name;
 
-  @ManyToMany(cascade = {CascadeType.MERGE, CascadeType.ALL, CascadeType.PERSIST, CascadeType.REFRESH},
+  @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.REFRESH},
           fetch = FetchType.EAGER)
   @Fetch(value = FetchMode.SUBSELECT)
   @JoinTable(

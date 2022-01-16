@@ -20,7 +20,7 @@ public class Skill implements IObjectToString {
   @Column(name = "level_skills")
   private String level;
 
-  @ManyToMany(cascade = {CascadeType.MERGE, CascadeType.ALL, CascadeType.PERSIST, CascadeType.REFRESH},
+  @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.REFRESH},
       fetch = FetchType.EAGER)
   @Fetch(value = FetchMode.SUBSELECT)
   @JoinTable(

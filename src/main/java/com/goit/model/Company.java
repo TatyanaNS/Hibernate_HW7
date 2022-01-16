@@ -19,7 +19,7 @@ public class Company implements IObjectToString {
   @SerializedName("name")
   private String name;
 
-  @ManyToMany(cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH},
+  @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.REFRESH},
           fetch = FetchType.EAGER)
   @Fetch(value = FetchMode.SUBSELECT)
   @JoinTable(

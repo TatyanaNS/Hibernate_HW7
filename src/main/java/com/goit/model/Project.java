@@ -33,7 +33,7 @@ public class Project implements IObjectToString {
   @SerializedName("cost")
   private Double cost;
 
-  @ManyToMany(cascade = {CascadeType.MERGE, CascadeType.ALL, CascadeType.PERSIST, CascadeType.REFRESH},
+  @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.REFRESH},
           fetch = FetchType.EAGER)
   @Fetch(value = FetchMode.SUBSELECT)
   @JoinTable(
@@ -44,7 +44,7 @@ public class Project implements IObjectToString {
   @OnDelete(action = OnDeleteAction.CASCADE)
   private List<Developer> developers;
 
-  @ManyToMany(cascade = {CascadeType.MERGE, CascadeType.ALL, CascadeType.PERSIST, CascadeType.REFRESH},
+  @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.REFRESH},
           fetch = FetchType.EAGER)
   @Fetch(value = FetchMode.SUBSELECT)
   @JoinTable(
@@ -55,7 +55,7 @@ public class Project implements IObjectToString {
   @OnDelete(action = OnDeleteAction.CASCADE)
   private transient List<Customer> customers;
 
-  @ManyToMany(cascade = {CascadeType.MERGE, CascadeType.ALL, CascadeType.PERSIST, CascadeType.REFRESH},
+  @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.REFRESH},
           fetch = FetchType.EAGER)
   @Fetch(value = FetchMode.SUBSELECT)
   @JoinTable(
